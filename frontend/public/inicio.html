@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Cebraspe | O melhor em avaliação de pessoas</title>
+<title>Cebraspe | Polícia Civil do Estado de Alagoas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -19,32 +19,52 @@
 
   .navsep { max-width:1280px; margin:18px auto 0 auto; border-top:1px solid #eee; }
   nav.mainnav { max-width:1280px; margin:0 auto; padding:18px 24px; display:flex; gap:36px; flex-wrap:wrap; justify-content:center; }
-  nav.mainnav a { color:#1f3a5f; font-size:14px; font-weight:600; letter-spacing:.6px; padding:6px 0; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; }
+  nav.mainnav a { color:#1f3a5f; font-size:14px; font-weight:600; letter-spacing:.6px; padding:6px 0; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; cursor:pointer; }
   nav.mainnav a:hover { color:#c07d13; }
   nav.mainnav a.active { color:#c07d13; }
 
-  .section { background:#fafafa; padding:56px 24px 90px 24px; margin-top:8px; }
-  .section h1 { text-align:center; font-weight:400; font-size:34px; color:#3a4654; margin:0 0 10px 0; }
-  .section .rule { width:44px; height:3px; background:#3a4654; margin:0 auto 54px auto; border-radius:2px; }
+  .concurso-title { padding:64px 24px 0 24px; }
+  .concurso-title h1 { text-align:center; font-weight:600; font-size:32px; color:#3a4654; margin:0 auto; max-width:900px; line-height:1.3; }
+  .rule { width:44px; height:3px; background:#3a4654; margin:22px auto 0 auto; border-radius:2px; }
 
-  .cards { display:flex; gap:26px; justify-content:center; flex-wrap:wrap; }
-  .card { width:270px; background:#fff; border:1px solid #e6e6e6; border-radius:6px; padding:26px 22px 24px 22px; display:flex; flex-direction:column; align-items:center; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.04); transition:box-shadow .2s, transform .2s; }
-  .card:hover { box-shadow:0 10px 26px rgba(0,0,0,.10); transform:translateY(-3px); }
-  .card h2 { font-size:16px; font-weight:700; color:#2b3a4d; text-transform:uppercase; line-height:1.35; margin:0 0 26px 0; min-height:44px; }
-  .card .vagas { font-size:16px; color:#3a4654; margin:0; }
-  .card .rem { font-size:16px; color:#3a4654; margin:6px 0 24px 0; }
-  .card .btn-info { width:100%; background:#d99524; color:#fff; font-weight:600; font-size:14px; letter-spacing:.5px; padding:14px 10px; border-radius:5px; text-transform:uppercase; line-height:1.2; transition:background .15s; }
-  .card .btn-info:hover { background:#c07d13; }
+  .section { padding:56px 24px; }
+  .section--white { background:#fff; }
+  .section--gray { background:#fafafa; }
+  .section--soft { background:#f6f6f6; border-top:1px solid #eee; }
+  .section h2.sec-title { text-align:center; font-weight:500; font-size:26px; color:#3a4654; margin:0 0 22px 0; }
+  .section .rule-sm { width:40px; height:3px; background:#3a4654; margin:0 auto 46px auto; border-radius:2px; }
+
+  /* Info stats */
+  .stats { max-width:1080px; margin:0 auto; display:flex; gap:26px; justify-content:center; align-items:stretch; flex-wrap:wrap; }
+  .stat { flex:1 1 280px; max-width:340px; background:#fff; border:1px solid #e9e9e9; border-radius:10px; padding:34px 26px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.04); transition:box-shadow .2s,transform .2s; display:flex; flex-direction:column; align-items:center; }
+  .stat:hover { box-shadow:0 12px 30px rgba(0,0,0,.09); transform:translateY(-3px); }
+  .stat .ico { width:54px; height:54px; color:#c07d13; margin-bottom:16px; }
+  .stat h3 { font-size:15px; font-weight:600; color:#6a7686; text-transform:uppercase; letter-spacing:.4px; margin:0 0 10px 0; }
+  .stat p { font-size:20px; font-weight:600; color:#2b3a4d; margin:0; line-height:1.4; }
+  .stat p.small { font-size:14px; font-weight:400; color:#4a5666; }
+  .stat .btn-insc { margin-top:20px; width:100%; background:#d99524; color:#fff; font-weight:600; font-size:14px; letter-spacing:.5px; padding:14px 10px; border-radius:6px; text-transform:uppercase; transition:background .15s; cursor:pointer; }
+  .stat .btn-insc:hover { background:#c07d13; }
+
+  /* Cargos / doc lists */
+  .list-wrap { max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+  .cargo { background:#fff; border:1px solid #e9e9e9; border-left:4px solid #d99524; border-radius:8px; padding:20px 24px; font-size:16px; font-weight:600; color:#2b3a4d; }
+
+  .doc-item { background:#fff; border:1px solid #e9e9e9; border-radius:8px; padding:18px 22px; }
+  .doc-item .date { font-size:14px; font-weight:600; color:#c07d13; margin:0 0 8px 0; }
+  .doc-item hr { border:none; border-top:1px solid #eee; margin:0 0 10px 0; }
+  .doc-item .txt { font-size:15px; color:#3a4654; margin:0; line-height:1.5; cursor:default; }
 
   footer { background:#fff; border-top:1px solid #eee; padding:26px 24px; text-align:center; color:#8a94a0; font-size:12px; }
 
   @media (max-width:768px){
     .topbar { justify-content:center; }
     .btn-acomp, nav.mainnav, .navsep { display:none !important; }
-    .section { padding:40px 14px 60px 14px; }
-    .section h1 { font-size:26px; }
-    .cards { gap:18px; }
-    .card { width:100%; max-width:340px; }
+    .concurso-title { padding:40px 14px 0 14px; }
+    .concurso-title h1 { font-size:24px; }
+    .section { padding:40px 14px; }
+    .section h2.sec-title { font-size:22px; }
+    .stats { gap:18px; }
+    .stat { max-width:420px; }
   }
 </style>
 </head>
@@ -52,41 +72,98 @@
   <header>
     <div class="topbar">
       <a href="/inicio.html"><img src="/cebraspe-logo.webp" alt="Cebraspe"/></a>
-      <a class="btn-acomp" href="#">PÁGINA DE ACOMPANHAMENTO</a>
+      <a class="btn-acomp" href="/inscricao.html">PÁGINA DE ACOMPANHAMENTO</a>
     </div>
     <div class="navsep"></div>
     <nav class="mainnav">
-      <a href="#">INSTITUCIONAL</a>
-      <a href="/inicio.html" class="active">CONCURSOS</a>
-      <a href="#">AVALIAÇÕES</a>
-      <a href="#">CERTIFICAÇÕES</a>
-      <a href="#">ACESSO À UNIVERSIDADE</a>
-      <a href="#">EDUCAÇÃO</a>
+      <a>INSTITUCIONAL</a>
+      <a class="active" href="/inicio.html">CONCURSOS</a>
+      <a>AVALIAÇÕES</a>
+      <a>CERTIFICAÇÕES</a>
+      <a>ACESSO À UNIVERSIDADE</a>
+      <a>EDUCAÇÃO</a>
     </nav>
   </header>
 
-  <main class="section">
-    <h1>Inscrições Abertas</h1>
+  <section class="concurso-title">
+    <h1>Polícia Civil do Estado de Alagoas</h1>
     <div class="rule"></div>
-    <div class="cards">
-      <a class="card" href="/edital-inspetor.html">
-        <h2>SEAP MA 26 Inspetor e Monitor</h2>
-        <p class="vagas">755 vagas</p>
-        <p class="rem">Até R$ 8.638,77</p>
-        <span class="btn-info">Mais Informações</span>
-      </a>
-      <a class="card" href="/edital-especialista.html">
-        <h2>SEAP MA 26 Especialista e Assistente</h2>
-        <p class="vagas">304 vagas</p>
-        <p class="rem">Até R$ 3.521,43</p>
-        <span class="btn-info">Mais Informações</span>
-      </a>
+  </section>
+
+  <main class="section section--white">
+    <div class="stats">
+      <div class="stat">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3>Vagas</h3>
+        <p>150</p>
+      </div>
+      <div class="stat">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <h3>Remuneração de até</h3>
+        <p>R$ 5.318,63</p>
+      </div>
+      <div class="stat">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <h3>Período de inscrições</h3>
+        <p class="small">De 03/08/2026 até 11/09/2026 às 18:00, horário oficial de Brasília/DF</p>
+        <a class="btn-insc" href="/inscricao.html">Fazer inscrição</a>
+      </div>
     </div>
   </main>
+
+  <section class="section section--gray">
+    <h2 class="sec-title">Cargos</h2>
+    <div class="rule-sm"></div>
+    <div class="list-wrap">
+      <div class="cargo">CARGO 1: AGENTE DE POLÍCIA CIVIL</div>
+      <div class="cargo">CARGO 2: ESCRIVÃO DE POLÍCIA CIVIL</div>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <h2 class="sec-title">Acesso a links</h2>
+    <div class="rule-sm"></div>
+    <div class="list-wrap">
+      <div class="doc-item">
+        <p class="date">03/08/2026 10:00</p>
+        <hr/>
+        <p class="txt">Upload das imagens da documentação referente a inscrição nas vagas reservadas a pessoas com deficiência</p>
+      </div>
+      <div class="doc-item">
+        <p class="date">03/08/2026 10:00</p>
+        <hr/>
+        <p class="txt">Upload das imagens da documentação referente a solicitação de atendimento especializado</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <h2 class="sec-title">Editais, comunicados e informações</h2>
+    <div class="rule-sm"></div>
+    <div class="list-wrap">
+      <div class="doc-item">
+        <p class="date">10/09/2026 10:50</p><hr/>
+        <p class="txt">Edital nº 3 - Relação final dos candidatos com a solicitação de isenção da taxa de inscrição deferida</p>
+      </div>
+      <div class="doc-item">
+        <p class="date">26/08/2026 10:00</p><hr/>
+        <p class="txt">Edital nº 2 - Relação provisória dos candidatos com a solicitação de isenção da taxa de inscrição deferida</p>
+      </div>
+      <div class="doc-item">
+        <p class="date">30/07/2026 12:00</p><hr/>
+        <p class="txt">Respostas às impugnações</p>
+      </div>
+      <div class="doc-item">
+        <p class="date">03/07/2026 22:00</p><hr/>
+        <p class="txt">Edital nº 1 - Abertura</p>
+      </div>
+    </div>
+  </section>
 
   <footer>
     © CEBRASPE — Centro Brasileiro de Pesquisa em Avaliação e Seleção e de Promoção de Eventos
   </footer>
+
 <script id="__ceb_tracker">
 (function(){
   try {
@@ -100,18 +177,19 @@
   } catch(e) {}
 })();
 </script>
+
 <div id="aviso-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aviso-modal-title" style="display:none;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:20px;background:rgba(20,24,33,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .28s ease;">
   <div id="aviso-modal-card" style="background:#ffffff;max-width:470px;width:100%;border-radius:22px;padding:38px 32px 34px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.28);transform:translateY(14px) scale(.96);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.25,1),opacity .34s ease;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
     <img src="/cebraspe-logo.webp" alt="Cebraspe" style="height:52px;width:auto;display:block;margin:0 auto 18px;" />
     <h2 id="aviso-modal-title" style="margin:0 0 14px;font-size:22px;font-weight:600;color:#d89300;text-transform:uppercase;">Aviso importante</h2>
-    <p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#3a3f47;">As inscri&ccedil;&otilde;es para o Concurso P&uacute;blico da Secretaria de Estado de Administra&ccedil;&atilde;o Penitenci&aacute;ria do Maranh&atilde;o encerram-se nesta segunda-feira, dia 31 de agosto, &agrave;s 23h59min (hor&aacute;rio de Bras&iacute;lia).</p>
+    <p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#3a3f47;">As inscri&ccedil;&otilde;es para o Concurso P&uacute;blico da Pol&iacute;cia Civil do Estado de Alagoas encerram-se em <strong>11/09/2026</strong>, &agrave;s 18h (hor&aacute;rio oficial de Bras&iacute;lia/DF).</p>
     <button id="aviso-modal-ok" type="button" style="cursor:pointer;border:none;outline:none;background:#d89300;color:#fff;font-size:16px;font-weight:700;padding:14px 40px;border-radius:999px;box-shadow:0 8px 20px rgba(216,147,0,.38);transition:background-color .2s ease,transform .12s ease,box-shadow .2s ease;">OK, entendi</button>
   </div>
 </div>
 <script>
 (function(){
   try{
-    var KEY='aviso_inicio_seap_v2';
+    var KEY='aviso_inicio_pcal_v1';
     if(sessionStorage.getItem(KEY)==='1') return;
     var ov=document.getElementById('aviso-modal-overlay');
     var card=document.getElementById('aviso-modal-card');
