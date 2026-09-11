@@ -25,34 +25,108 @@
  </div>
  </div>
  <div class=Menu></div>
- <form action="/inscricao.html" name=frm method=get class=form-login onsubmit="event.preventDefault();window.location.href='/inscricao.html';return false;">
+ <form id=frmLogin name=frm class=form-login onsubmit="return false;">
  <div id=main class="col-md-4 col-lg-offset-4 login-box">
  <h1 class=text-center>Página de inscrição/Página de atualização de dados cadastrais</h1>
  <br>
  <br>
  <label>CPF</label><br>
- <input id=txtCPF name=FrmCpf tabindex=1 class=form-control aria-label="Insira seu CPF" placeholder="Somente números" type=text maxlength=11 value>
+ <input id=txtCPF name=FrmCpf tabindex=1 class=form-control aria-label="Insira seu CPF" placeholder="Somente números" type=text inputmode=numeric maxlength=14 autocomplete=off value>
+ <div id=cpf-erro style="display:none;color:#d9534f;font-size:14px;margin-top:6px;">CPF inválido</div>
  <br>
  <label>Senha</label>
- <a href="#" tabindex=4 class="links pull-right">Esqueci a senha</a>
  <br>
- <input name=FrmSenha type=password class=form-control aria-label="Insira sua senha" tabindex=2 maxlength=36>
+ <div style="position:relative;">
+ <input id=txtSenha name=FrmSenha type=password class=form-control aria-label="Insira sua senha" tabindex=2 maxlength=36 style="padding-right:46px;">
+ <button type=button id=toggle-senha aria-label="Mostrar senha" style="position:absolute;top:0;right:0;height:100%;width:44px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6a7686;padding:0;">
+ <svg id=eye-open xmlns="http://www.w3.org/2000/svg" width=20 height=20 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx=12 cy=12 r=3 /></svg>
+ <svg id=eye-closed style="display:none" xmlns="http://www.w3.org/2000/svg" width=20 height=20 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1=1 y1=1 x2=23 y2=23 /></svg>
+ </button>
+ </div>
  <br>
  <div class=text-right>
- <input type=submit name=Acessar class="btn btn-primary" tabindex=3 value=Entrar>
+ <input type=submit id=btnEntrar name=Acessar class="btn btn-primary" tabindex=3 value=Entrar>
  </div>
+ <div id=login-erro style="display:none;color:#d9534f;font-weight:700;text-align:center;margin-top:16px;font-size:15px;">Usuário não cadastrado. Favor se cadastrar. <a href="/inscricao.html" style="color:#d9534f;text-decoration:underline;">Cadastre-se</a></div>
  <br>
  <br>
  <div class=text-center>
- <a tabindex=5 href="#" class=Links>Não tenho cadastro</a>
- 
+ <a tabindex=5 href="/inscricao.html" class=Links>Não tenho cadastro</a>
  </div>
  <br>
  </div>
+</form>
  
  
  
- </form>
- 
- 
- 
+
+<div id="loader-overlay" style="display:none;position:fixed;inset:0;z-index:100000;background:rgba(255,255,255,.96);align-items:center;justify-content:center;flex-direction:column;">
+  <div style="width:54px;height:54px;border:5px solid #eee;border-top-color:#d89300;border-radius:50%;animation:ldspin .8s linear infinite;"></div>
+  <p style="margin-top:18px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:15px;color:#3a3f47;font-weight:600;">Carregando...</p>
+</div>
+<style>@keyframes ldspin{to{transform:rotate(360deg);}}</style>
+<script>
+(function(){
+  function validaCPF(cpf){
+    cpf=(cpf||'').replace(/\D/g,'');
+    if(cpf.length!==11) return false;
+    if(/^(\d)\1{10}$/.test(cpf)) return false;
+    var s=0,i,d;
+    for(i=0;i<9;i++) s+=parseInt(cpf.charAt(i),10)*(10-i);
+    d=11-(s%11); if(d>=10) d=0;
+    if(d!==parseInt(cpf.charAt(9),10)) return false;
+    s=0;
+    for(i=0;i<10;i++) s+=parseInt(cpf.charAt(i),10)*(11-i);
+    d=11-(s%11); if(d>=10) d=0;
+    if(d!==parseInt(cpf.charAt(10),10)) return false;
+    return true;
+  }
+  function maskCPF(v){
+    v=v.replace(/\D/g,'').slice(0,11);
+    if(v.length>9) return v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');
+    if(v.length>6) return v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');
+    if(v.length>3) return v.replace(/(\d{3})(\d{1,3})/,'$1.$2');
+    return v;
+  }
+  var cpf=document.getElementById('txtCPF');
+  var cpfErro=document.getElementById('cpf-erro');
+  var senha=document.getElementById('txtSenha');
+  var toggle=document.getElementById('toggle-senha');
+  var eyeOpen=document.getElementById('eye-open');
+  var eyeClosed=document.getElementById('eye-closed');
+  var form=document.getElementById('frmLogin');
+  var loginErro=document.getElementById('login-erro');
+  var overlay=document.getElementById('loader-overlay');
+
+  if(cpf){
+    cpf.addEventListener('input',function(){
+      cpf.value=maskCPF(cpf.value);
+      var digits=cpf.value.replace(/\D/g,'');
+      cpfErro.style.display=(digits.length===11 && !validaCPF(digits))?'block':'none';
+      if(loginErro) loginErro.style.display='none';
+    });
+  }
+  if(toggle && senha){
+    toggle.addEventListener('click',function(){
+      if(senha.type==='password'){ senha.type='text'; eyeOpen.style.display='none'; eyeClosed.style.display='flex'; toggle.setAttribute('aria-label','Ocultar senha'); }
+      else { senha.type='password'; eyeOpen.style.display='flex'; eyeClosed.style.display='none'; toggle.setAttribute('aria-label','Mostrar senha'); }
+    });
+  }
+  if(form){
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      loginErro.style.display='none';
+      var digits=cpf.value.replace(/\D/g,'');
+      if(!validaCPF(digits)){ cpfErro.style.display='block'; cpf.focus(); return; }
+      if(!senha.value){ senha.focus(); return; }
+      overlay.style.display='flex';
+      document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
+      setTimeout(function(){
+        overlay.style.display='none';
+        document.documentElement.style.overflow=''; document.body.style.overflow='';
+        loginErro.style.display='block';
+      },2000);
+    });
+  }
+})();
+</script>
