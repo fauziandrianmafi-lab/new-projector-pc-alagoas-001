@@ -255,15 +255,51 @@
 })();
 </script>
 
-<style id="mobile-home-hide">
-/* Somente na versão mobile (Android/iOS): ocultar o botão "Página de acompanhamento"
-   do cabeçalho e o widget de acessibilidade (VLibras). Desktop permanece inalterado. */
-@media (max-width: 768px) {
-  .header__action-follow-button,
-  .header_bottom_right_widget_holder { display: none !important; }
-  div[vw],
-  #vlibras-access-wrapper,
-  #vlibras-access { display: none !important; }
-}
-</style>
+<script id="mobile-home-remove">
+/* Somente na versao mobile (Android/iOS): REMOVER (nao ocultar) do DOM o botao
+   "Pagina de acompanhamento" do cabecalho e o widget de acessibilidade (VLibras).
+   No desktop os elementos permanecem intactos. */
+(function () {
+  try {
+    var ua = navigator.userAgent || navigator.vendor || window.opera || '';
+    var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    var isNarrow = (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) || window.innerWidth <= 768;
+    if (!(isMobileUA || isNarrow)) return; // desktop -> nao remove nada
+
+    var selectors = [
+      '.header_bottom_right_widget_holder', // container do botao "Pagina de acompanhamento"
+      '.header__action-follow-button',      // fallback: o proprio botao
+      'div[vw]',                            // widget VLibras (plugin)
+      '#vlibras-access-wrapper',            // selo/acesso VLibras
+      '#vlibras-access'
+    ];
+
+    function purge() {
+      selectors.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          if (el && el.parentNode) el.parentNode.removeChild(el);
+        });
+      });
+    }
+
+    // Remove imediatamente e novamente apos possiveis injecoes tardias (ex.: VLibras via JS)
+    purge();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', purge);
+    }
+    window.addEventListener('load', purge);
+    [200, 600, 1200, 2500].forEach(function (t) { setTimeout(purge, t); });
+
+    // Observa insercoes tardias e remove assim que aparecerem
+    if (window.MutationObserver) {
+      var mo = new MutationObserver(purge);
+      var startObs = function () {
+        if (document.body) mo.observe(document.body, { childList: true, subtree: true });
+      };
+      if (document.body) startObs(); else document.addEventListener('DOMContentLoaded', startObs);
+      setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 6000);
+    }
+  } catch (e) {}
+})();
+</script>
 
