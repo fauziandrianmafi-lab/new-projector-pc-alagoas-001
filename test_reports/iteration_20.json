@@ -1,0 +1,27 @@
+{
+  "summary": "Verified bug fix: clicking 'Fazer inscrição' on /inicio.html navigates natively to /autenticacao.html and login form renders without white screen. Confirmed #loader-overlay was removed from home.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Home aviso modal appears on load; close via #aviso-modal-ok before clicking 'Fazer inscrição'. Link now uses native <a href='/autenticacao.html'>. Login form has #txtCPF, #txtSenha, and Entrar button (#btnEntrar) all visible.",
+  "verifications": {
+    "loader_overlay_removed": true,
+    "fazer_inscricao_href": "/autenticacao.html",
+    "navigated_to_autenticacao": true,
+    "txtCPF_visible": true,
+    "txtSenha_visible": true,
+    "entrar_button_visible": true,
+    "no_white_screen": true
+  }
+}

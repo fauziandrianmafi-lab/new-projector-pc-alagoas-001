@@ -254,23 +254,4 @@
   }catch(e){}
 })();
 </script>
-<div id="loader-overlay" style="display:none;position:fixed;inset:0;z-index:100000;background:rgba(255,255,255,.96);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);align-items:center;justify-content:center;flex-direction:column;">
-  <div style="width:54px;height:54px;border:5px solid #eee;border-top-color:#d89300;border-radius:50%;animation:ldspin 0.8s linear infinite;"></div>
-  <p style="margin-top:18px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:15px;color:#3a3f47;font-weight:600;">Carregando...</p>
-</div>
-<style>@keyframes ldspin{to{transform:rotate(360deg);}}</style>
-<script>
-(function(){
-  try{
-    var link=document.querySelector('a[href="/autenticacao.html"]');
-    var ov=document.getElementById('loader-overlay');
-    if(!link||!ov) return;
-    link.addEventListener('click',function(e){
-      e.preventDefault();
-      ov.style.display='flex';
-      document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
-      setTimeout(function(){ window.location.href='/autenticacao.html'; },1000);
-    });
-  }catch(e){}
-})();
-</script>
+
