@@ -1,0 +1,36 @@
+{
+  "summary": "Verified left-edge alignment of the three target texts on /inscricao.html at viewports 1400x900 and 1920x1000. All three share identical left values (0px diff). p.tipo (CONCURSO label) is not present in the DOM.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "measurements": {
+    "viewport_1400x900": {
+      "tituloPagina_span_left": 184,
+      "TopoInformacoes_strong_left": 184,
+      "frm_style_list_description_left": 184,
+      "max_diff_px": 0,
+      "result": "PASS"
+    },
+    "viewport_1920x1000": {
+      "tituloPagina_span_left": 444,
+      "TopoInformacoes_strong_left": 444,
+      "frm_style_list_description_left": 444,
+      "max_diff_px": 0,
+      "result": "PASS"
+    },
+    "tipo_label_visible": false,
+    "tipo_label_present_in_dom": false
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Alignment fix using <style id='__align_titles_v3'> is effective. All three headings/labels start at same left (diff=0px) in both tested viewports. p.tipo has been removed from DOM."
+}
