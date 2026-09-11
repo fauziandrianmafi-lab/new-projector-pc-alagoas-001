@@ -210,39 +210,45 @@
   } catch(e) {}
 })();
 </script>
-<div id="aviso-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="aviso-modal-title" style="display:none;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:20px;background:rgba(20,24,33,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .28s ease;">
-  <div id="aviso-modal-card" style="background:#ffffff;max-width:470px;width:100%;border-radius:22px;padding:38px 32px 34px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.28);transform:translateY(14px) scale(.96);opacity:1;transition:transform .34s cubic-bezier(.2,.8,.25,1),opacity .34s ease;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;">
-    <h2 id="aviso-modal-title" style="margin:0 0 14px;font-size:22px;font-weight:600;color:#d89300;text-transform:uppercase;">Aviso importante</h2>
-    <p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#3a3f47;">As inscri&ccedil;&otilde;es para o Concurso P&uacute;blico da Pol&iacute;cia Civil do Estado de Alagoas encerram-se em <strong>11/09/2026</strong>, &agrave;s 23h59 (hor&aacute;rio oficial de Bras&iacute;lia/DF).</p>
-    <button id="aviso-modal-ok" type="button" style="cursor:pointer;border:none;outline:none;background:#d89300;color:#fff;font-size:16px;font-weight:700;padding:14px 40px;border-radius:999px;box-shadow:0 8px 20px rgba(216,147,0,.38);transition:background-color .2s ease,transform .12s ease,box-shadow .2s ease;">OK, entendi</button>
-  </div>
-</div>
 <script>
 (function(){
   try{
-    var KEY='aviso_inicio_pcal_v1';
-    if(sessionStorage.getItem(KEY)==='1') return;
-    var ov=document.getElementById('aviso-modal-overlay');
-    var card=document.getElementById('aviso-modal-card');
-    var btn=document.getElementById('aviso-modal-ok');
-    if(!ov||!card||!btn) return;
-    function open(){
-      ov.style.display='flex';
-      requestAnimationFrame(function(){ ov.style.opacity='1'; card.style.transform='translateY(0) scale(1)'; card.style.opacity='1'; });
-      document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden';
+    var KEY='aviso_inicio_pcal_v2';
+    function build(){
+      try{
+        if(sessionStorage.getItem(KEY)==='1') return;
+      }catch(e){}
+      if(document.getElementById('aviso-modal-overlay')) return;
+      var ov=document.createElement('div');
+      ov.id='aviso-modal-overlay';
+      ov.setAttribute('role','dialog');
+      ov.setAttribute('aria-modal','true');
+      ov.style.cssText='display:flex;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:2147483000;align-items:center;justify-content:center;padding:20px;background:rgba(20,24,33,.6);box-sizing:border-box;';
+      var card=document.createElement('div');
+      card.id='aviso-modal-card';
+      card.style.cssText="background:#ffffff;max-width:470px;width:100%;border-radius:22px;padding:38px 32px 34px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.28);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-sizing:border-box;";
+      card.innerHTML='<h2 style="margin:0 0 14px;font-size:22px;font-weight:600;color:#d89300;text-transform:uppercase;">Aviso importante</h2>'
+        +'<p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#3a3f47;">As inscri&ccedil;&otilde;es para o Concurso P&uacute;blico da Pol&iacute;cia Civil do Estado de Alagoas encerram-se em <strong>11/09/2026</strong>, &agrave;s 23h59 (hor&aacute;rio oficial de Bras&iacute;lia/DF).</p>'
+        +'<button id="aviso-modal-ok" type="button" style="cursor:pointer;border:none;outline:none;background:#d89300;color:#fff;font-size:16px;font-weight:700;padding:14px 40px;border-radius:999px;box-shadow:0 8px 20px rgba(216,147,0,.38);">OK, entendi</button>';
+      ov.appendChild(card);
+      document.body.appendChild(ov);
+      document.documentElement.style.overflow='hidden';
+      document.body.style.overflow='hidden';
+      function close(){
+        if(ov.parentNode) ov.parentNode.removeChild(ov);
+        document.documentElement.style.overflow='';
+        document.body.style.overflow='';
+        try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
+      }
+      var btn=card.querySelector('#aviso-modal-ok');
+      btn.addEventListener('click',close);
+      btn.addEventListener('mouseenter',function(){ btn.style.background='#c07f00'; });
+      btn.addEventListener('mouseleave',function(){ btn.style.background='#d89300'; });
+      ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
+      document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
     }
-    function close(){
-      ov.style.opacity='0'; card.style.transform='translateY(14px) scale(.96)'; card.style.opacity='0';
-      document.documentElement.style.overflow=''; document.body.style.overflow='';
-      setTimeout(function(){ ov.style.display='none'; },300);
-      try{ sessionStorage.setItem(KEY,'1'); }catch(e){}
-    }
-    btn.addEventListener('click',close);
-    btn.addEventListener('mouseenter',function(){ btn.style.background='#c07f00'; btn.style.transform='translateY(-1px)'; });
-    btn.addEventListener('mouseleave',function(){ btn.style.background='#d89300'; btn.style.transform='translateY(0)'; });
-    ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
-    setTimeout(open,600);
+    function start(){ setTimeout(build,600); }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
   }catch(e){}
 })();
 </script>

@@ -1,0 +1,25 @@
+{
+  "summary": "Tested /inicio.html modal fix across zoom 100%, 110%, 125%. Modal card #aviso-modal-card is fully within viewport at all zoom levels, overlay is a direct child of document.body, OK button removes the modal from DOM, and reload with same session does not reopen it (sessionStorage key aviso_inicio_pcal_v2).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": {
+    "zoom_100": {"width": 470, "height": 263.25, "top": 252.38, "left": 448, "right": 918, "bottom": 515.63, "fullyInView": true, "parentIsBody": true},
+    "zoom_110": {"width": 517, "height": 289.88, "top": 239.06, "left": 424.5, "right": 941.5, "bottom": 528.94, "fullyInView": true, "parentIsBody": true},
+    "zoom_125": {"width": 587.5, "height": 329.08, "top": 219.45, "left": 389.25, "right": 976.75, "bottom": 548.53, "fullyInView": true, "parentIsBody": true},
+    "ok_button_closes": true,
+    "reload_does_not_reopen": true
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": ["Fix is correct: injecting the modal directly under document.body escapes any ancestor with CSS transform, restoring the fixed positioning relative to viewport at all zoom levels."],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Modal bug fix on /inicio.html verified at zoom 100/110/125%. All acceptance criteria pass."
+}
