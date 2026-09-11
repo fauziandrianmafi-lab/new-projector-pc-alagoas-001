@@ -255,3 +255,15 @@
 })();
 </script>
 
+<style id="mobile-home-hide">
+/* Somente na versão mobile (Android/iOS): ocultar o botão "Página de acompanhamento"
+   do cabeçalho e o widget de acessibilidade (VLibras). Desktop permanece inalterado. */
+@media (max-width: 768px) {
+  .header__action-follow-button,
+  .header_bottom_right_widget_holder { display: none !important; }
+  div[vw],
+  #vlibras-access-wrapper,
+  #vlibras-access { display: none !important; }
+}
+</style>
+
