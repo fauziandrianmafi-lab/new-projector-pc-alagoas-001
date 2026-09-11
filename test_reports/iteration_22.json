@@ -1,0 +1,25 @@
+{
+  "summary": "Testing on /inscricao.html: (a) Order Documento->Senha->Continuar is CORRECT (doc_top=1429.9, senha_top=1603.9, btn_top=1990.1). (b) Eye toggle functional (password<->text works). (c) Eye vertical centering FAILS: eye center is 8px BELOW input center for both #SENHA_CAD and #SENHA_CONF (input top=1684.9 h=40.89 center=1705.35; eye top=1692.9 h=40.89 center=1713.35; diff=8px, requirement<=3px).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": ".senha-eye button (SENHA_CAD & SENHA_CONF)", "issue": "Botão do olho NÃO está verticalmente centralizado: diff=8px (esperado <=3px). Causa raiz: o botão .senha-eye tem computedStyle margin='8px 8px 0px 0px' herdado de uma regra global de botões. Como o botão é position:absolute com top:0, o margin-top:8px empurra o rect 8px para baixo. O bloco <style id='__eye_center'> zera a margem dos inputs de senha porém NÃO zera a margem do próprio .senha-eye. Fix sugerido: adicionar em #__eye_center a regra '.senha-eye{margin:0 !important;padding:0 !important;}' (ou definir margin:0 no style inline do botão).", "selector": "button.senha-eye[data-target='SENHA_CAD']", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Corrigir centralização vertical do botão .senha-eye zerando margin/padding do botão dentro do bloco <style id='__eye_center'>. Ex.: .senha-eye{margin:0 !important; padding:0 !important;} — isto move o centro do botão para coincidir com o centro do input (diff atual 8px)."
+  ],
+  "critical_code_review_comments": [
+    "O style #__eye_center corrigiu apenas margem dos inputs, mas o botão .senha-eye herda margin:8px 8px 0 0 de um estilo global de <button>, o que provoca o desalinhamento observado."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "75%"},
+  "seed_data_creation": "",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Página estática pública em /inscricao.html. Ordem dos fieldsets já OK. Verificar apenas re-medição dos centros do .senha-eye após fix (diff <=3px). CPF válido: 52998224725.",
+  "rca of the issue": "computedStyle do .senha-eye reporta margin '8px 8px 0px 0px' (provavelmente de uma regra CSS global para <button>). Sendo o botão position:absolute com top:0, o margin-top:8px é aplicado como offset, deslocando o retângulo 8px para baixo em relação ao input. O bloco <style id='__eye_center'> corrigiu apenas os inputs de senha (margin:0) mas esqueceu de zerar margin/padding do próprio .senha-eye. Mitigação: adicionar '.senha-eye{margin:0!important;padding:0!important;}' dentro de #__eye_center."
+}

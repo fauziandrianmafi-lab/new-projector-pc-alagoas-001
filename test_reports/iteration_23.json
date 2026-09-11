@@ -1,0 +1,57 @@
+{
+  "summary": "Re-teste da centralização vertical do botão .senha-eye em #SENHA_CAD e #SENHA_CONF na página estática /inscricao.html. FIX NÃO FUNCIONOU: o botão ainda está 8px abaixo do centro do input (limite exigido: <=3px). Toggle funcional do olho está OK nos dois campos.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": ".senha-eye (dentro de #SENHA_CAD / #SENHA_CONF)",
+        "issue": "Centralização vertical ainda com diff de 8px (esperado <=3px). O botão .senha-eye está deslocado 8px para baixo em relação ao input.",
+        "selector": "#pgInformacoes button.senha-eye",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "measurements": {
+    "SENHA_CAD": {
+      "input": {"top": 1684.906, "height": 40.891, "center": 1705.352},
+      "eye":   {"top": 1692.906, "height": 40.891, "center": 1713.352},
+      "diff_px": 8.0
+    },
+    "SENHA_CONF": {
+      "input": {"top": 1764.797, "height": 40.891, "center": 1785.242},
+      "eye":   {"top": 1772.797, "height": 40.891, "center": 1793.242},
+      "diff_px": 8.0
+    },
+    "toggle_functional": {
+      "SENHA_CAD":  {"initial": "password", "afterClick1": "text", "afterClick2": "password"},
+      "SENHA_CONF": {"initial": "password", "afterClick1": "text", "afterClick2": "password"}
+    },
+    "computed_style_eye": {
+      "position": "absolute",
+      "top": "0px",
+      "bottom": "0px",
+      "height": "40.89px (100%)",
+      "marginTop": "8px  <-- CULPADO",
+      "marginBottom": "0px",
+      "paddingTop": "12px",
+      "paddingBottom": "12px",
+      "display": "block (NOTE: display:flex do #__eye_center foi sobrescrito também)"
+    }
+  },
+  "rca of the issue": "O style block #__eye_center define '.senha-eye{ margin:0 !important; padding:0 !important; display:flex !important; align-items:center !important; ... }'. Porém existe outro seletor com ESPECIFICIDADE MAIOR também com !important:\n\n    #pgInformacoes .botao, #pgInformacoes button, #pgInformacoes input[type=\"submit\"], #pgInformacoes input[type=\"button\"], #pgInformacoes a.botao { margin: 8px 8px 0px 0px !important; ... }\n\nEspecificidade '#pgInformacoes button' = (0,1,1) supera '.senha-eye' = (0,1,0). Como ambos usam !important, a maior especificidade vence => margin-top:8px !important é aplicado ao botão do olho. Isso também explica por que 'padding' (12px 12px vindos provavelmente do mesmo bloco de botões) e 'display:block' ganham do #__eye_center. Resultado: o botão fica empurrado 8px para baixo em relação ao topo do container relative, produzindo diff de exatamente 8px do centro.\n\nMitigação (para o main agent E1 aplicar):\nSubstituir/estender o bloco #__eye_center com um seletor de especificidade >= (0,1,1) e sobrescrever também padding/display. Sugestão:\n\n    #pgInformacoes button.senha-eye, .senha-eye {\n      position: absolute !important;\n      top: 0 !important;\n      right: 0 !important;\n      bottom: 0 !important;\n      height: 100% !important;\n      width: 44px !important;\n      margin: 0 !important;\n      padding: 0 !important;\n      border: none !important;\n      background: transparent !important;\n      display: flex !important;\n      align-items: center !important;\n      justify-content: center !important;\n    }\n\nApós esse fix, remedir top/height do input vs botão — o diff deve cair a 0px (heights iguais, tops iguais => centros iguais).",
+  "test_report_links": [],
+  "action_items": [
+    "CRITICAL: Aumentar especificidade do bloco #__eye_center para vencer '#pgInformacoes button {margin:8px !important; ...}'. Usar seletor '#pgInformacoes button.senha-eye' (ou !important + ID) e também zerar padding/forçar display:flex, pois o mesmo seletor de botões do #pgInformacoes provavelmente injeta padding e display que quebram a centralização atual."
+  ],
+  "critical_code_review_comments": [
+    "Uso excessivo de !important em várias regras (#pgInformacoes button com margin:8px !important; #__eye_center com margin:0 !important) leva a batalhas de especificidade. Recomenda-se, quando possível, usar seletor específico sem !important, ou pelo menos alinhar especificidade acima da regra a sobrescrever."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "50% (toggle OK, centralização FALHOU)"},
+  "seed_data_creation": "",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Página estática /app/frontend/public/inscricao.html. Testar apenas: (a) diff |input.center - eye.center| <=3px para #SENHA_CAD e #SENHA_CONF, (b) click no .senha-eye alterna type entre password/text. Selectors: input#SENHA_CAD, input#SENHA_CONF, botão .senha-eye dentro do mesmo div[position:relative]. Regras conflitantes: '#pgInformacoes button {margin:8px 8px 0 0 !important}' vs style block id='__eye_center'."
+}

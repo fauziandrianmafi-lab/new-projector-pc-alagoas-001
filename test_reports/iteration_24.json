@@ -1,0 +1,38 @@
+{
+  "summary": "Re-tested vertical centering of .senha-eye buttons vs #SENHA_CAD and #SENHA_CONF inputs on /inscricao.html. Both fields show PERFECT centering (diff = 0.0px, well within 3px threshold). Computed style confirms marginTop=0px and paddingTop=0px. Toggle functionality (password <-> text) works correctly on both fields.",
+  "measurements": {
+    "SENHA_CAD": {
+      "input": {"top": 1684.906, "height": 40.891, "center": 1705.352},
+      "button": {"top": 1684.906, "height": 40.891, "center": 1705.352},
+      "diff_px": 0.0,
+      "marginTop": "0px",
+      "paddingTop": "0px",
+      "position": "absolute",
+      "display": "flex"
+    },
+    "SENHA_CONF": {
+      "input": {"top": 1764.797, "height": 40.891, "center": 1785.242},
+      "button": {"top": 1764.797, "height": 40.891, "center": 1785.242},
+      "diff_px": 0.0,
+      "marginTop": "0px",
+      "paddingTop": "0px",
+      "position": "absolute",
+      "display": "flex"
+    }
+  },
+  "toggle_test": {
+    "SENHA_CAD": "password -> text -> password OK",
+    "SENHA_CONF": "password -> text -> password OK"
+  },
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "The higher-specificity rule '#pgInformacoes button.senha-eye' successfully overrides the global '#pgInformacoes button' margin rule. Eye buttons are now perfectly centered vertically over the password inputs (0px diff). No further action needed on this fix."
+}
