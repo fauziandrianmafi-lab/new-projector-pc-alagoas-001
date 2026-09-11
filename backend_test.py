@@ -8,7 +8,7 @@ import sys
 from collections import Counter
 
 # Base URL from frontend/.env
-BASE_URL = "https://donas-sesual-app.preview.emergentagent.com"
+BASE_URL = "https://donas-painel-preview-1.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 # Admin credentials
