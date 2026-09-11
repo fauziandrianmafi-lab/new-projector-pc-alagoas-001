@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only testing of /inscricao.html password fields feature. Verified initial disabled state, password match enables Continue button, password mismatch disables + shows error, and password eye toggles work without altering values.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": {
+    "test_1_initial_disabled": "PASS - #btn-salvar.disabled=true on load",
+    "test_2_passwords_match_enables_button": "PASS - With all required fields filled (used valid CEP 01001-000 for ViaCEP autofill of Endereço/Bairro/Cidade/UF), files uploaded, checkbox checked, and SENHA_CAD=SENHA_CONF='abc123' → #btn-salvar.disabled=false and #SENHA_ERR display=none",
+    "test_3_passwords_mismatch_disables_and_shows_error": "PASS - SENHA_CAD='abc123', SENHA_CONF='zzz999' → #btn-salvar.disabled=true and #SENHA_ERR display=block with text 'As senhas não coincidem'",
+    "test_4_eye_toggle_SENHA_CAD": "PASS - Clicking .senha-eye[data-target=SENHA_CAD] toggles input type password↔text; value 'abc123' preserved (no uppercase, no clearing) thanks to data-noupper='1'",
+    "test_5_eye_toggle_SENHA_CONF": "PASS - Clicking .senha-eye[data-target=SENHA_CONF] toggles type password→text"
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "ViaCEP autofill: when CEP is not found (e.g., 57000-000), the handler clears LOGRADOURO/BAIRRO/CIDADE/UF fields even if the user typed values before the async response returned. This causes user input loss and could confuse users filling from top-to-bottom. Consider only clearing when fields were auto-populated (add a flag), or skip clearing if user already typed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100% (5/5 scenarios)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Testing used CEP '01001-000' (São Paulo) which triggers ViaCEP successful autocomplete populating LOGRADOURO/BAIRRO/CIDADE/UF. Do NOT use '57000-000' first because ViaCEP returns not-found and the handler wipes the address fields you typed. Required fields on the page: NOME (name attr only, no id), CPF, DATA_NASCIMENTO, SEXO, CEP, LOGRADOURO, NUMERO, BAIRRO, CIDADE, UF, CELULAR, EMAIL, SENHA_CAD, SENHA_CONF, DOC_TIPO, DOC_FRENTE (file), DOC_VERSO (file), declaracao_veracidade (checkbox). SENHA_CAD/SENHA_CONF have data-noupper='1' so upcase behavior is disabled correctly.",
+  "rca of the issue": "N/A - no bugs found in the tested password feature"
+}

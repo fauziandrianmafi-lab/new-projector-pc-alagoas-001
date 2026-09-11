@@ -826,6 +826,7 @@ h2.tituloPagina span { border-bottom:0 !important; text-indent:0 !important; pad
 <div class="fgv-field wide"><label><span class="error">*</span> E-mail</label>
 <input class="textfield" data-testid="input-email" id="EMAIL" maxlength="200" name="EMAIL" required="" size="70" type="text" value=""/></div>
 </fieldset>
+ <fieldset> <label class="description">Senha de acesso</label> <label class="description error"></label> <div class="fgv-field wide"><label><span class="error">*</span> Cadastre uma senha</label> <div style="position:relative;"><input class="textfield" data-testid="input-senha-cadastro" id="SENHA_CAD" name="SENHA_CAD" required="" type="password" data-noupper="1" autocomplete="new-password" maxlength="36" style="padding-right:46px;"/><button type="button" class="senha-eye" data-target="SENHA_CAD" aria-label="Mostrar senha" style="position:absolute;top:0;right:0;height:100%;width:44px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6a7686;padding:0;"><svg class="eye-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><svg class="eye-closed" style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button></div></div> <div class="fgv-field wide"><label><span class="error">*</span> Repita a senha</label> <div style="position:relative;"><input class="textfield" data-testid="input-senha-confirmar" id="SENHA_CONF" name="SENHA_CONF" required="" type="password" data-noupper="1" autocomplete="new-password" maxlength="36" style="padding-right:46px;"/><button type="button" class="senha-eye" data-target="SENHA_CONF" aria-label="Mostrar senha" style="position:absolute;top:0;right:0;height:100%;width:44px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6a7686;padding:0;"><svg class="eye-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><svg class="eye-closed" style="display:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></button></div> <div id="SENHA_ERR" style="display:none;color:#c62828;font-size:14px;margin-top:6px;">As senhas não coincidem</div></div> </fieldset>
 <fieldset>
 <label class="description">Documento de identificação</label>
 <label class="description error"></label>
@@ -928,6 +929,7 @@ function __handleDocTipo(v){
   }
   function bindUpper(el){
     if(!el || el.type==='file' || el.tagName==='SELECT' || el.type==='checkbox' || el.type==='submit') return;
+    if(el.getAttribute && el.getAttribute('data-noupper')) return;
     el.addEventListener('input', function(){ toUpper(el); });
   }
 
@@ -1047,6 +1049,11 @@ function __handleDocTipo(v){
       if(el.id==='CELULAR' && !validCel(v)) ok=false;
       if(el.id==='EMAIL' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) ok=false;
       if(el.id==='CEP' && !/^\d{5}-?\d{3}$/.test(v)) ok=false;
+    }
+    var s1=document.getElementById('SENHA_CAD'), s2=document.getElementById('SENHA_CONF'), serr=document.getElementById('SENHA_ERR');
+    if(s1 && s2){
+      if(s1.value && s2.value && s1.value!==s2.value){ ok=false; if(serr) serr.style.display='block'; }
+      else if(serr){ serr.style.display='none'; }
     }
     btn.disabled = !ok;
     btn.style.opacity = ok ? '1' : '0.5';
@@ -1722,3 +1729,18 @@ html, body { overflow-x: hidden !important; }
 }
 </style>
 </body></html>
+<script>
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.senha-eye').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var inp=document.getElementById(btn.getAttribute('data-target'));
+        var open=btn.querySelector('.eye-open'), closed=btn.querySelector('.eye-closed');
+        if(!inp) return;
+        if(inp.type==='password'){ inp.type='text'; if(open)open.style.display='none'; if(closed)closed.style.display='flex'; btn.setAttribute('aria-label','Ocultar senha'); }
+        else { inp.type='password'; if(open)open.style.display='flex'; if(closed)closed.style.display='none'; btn.setAttribute('aria-label','Mostrar senha'); }
+      });
+    });
+  });
+})();
+</script>
